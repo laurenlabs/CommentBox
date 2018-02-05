@@ -43,16 +43,13 @@ class Comment extends Component {
   deleteComment(e) {
     e.preventDefault();
     let comments = this.state.data;
-
     let id = this.props.uniqueID;
-    // this.props.onCommentDelete(id);
-    console.log('deleteComment called');
 
     axios.delete(`http://localhost:3001/api/comments/${id}`, {author: this.state.author, text: this.state.text})
     .then(res => {
       this.setState({author: '', text: ''});
-      console.log(res.data);
-      console.log('Comment Delete - Deleted!');
+      // console.log(res.data);
+      // console.log('Comment Delete - Deleted!');
     })
     .catch(err => {
       console.error(err);

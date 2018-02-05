@@ -24,20 +24,7 @@ class CommentForm extends Component {
  }
 
  handleSubmit(e) {
-   // const {author, text} = this.state;
-   // let author = this.state.author.trim();
-   // let text = this.state.text.trim();
-   // if (!text || author) {
-   //   return;
-   // }
-   // this.props.onCommentSubmit({author: author, text: text});
-   // this.setState({author: '', text: ''});
-   // // console.log(`${this.state.author} said $"{this.state.text}"`)
-   // //we will be tying this into the POST method in a bit
-   // console.log('CommentForm HandleSubmit - is being called');
-   //
    let comments = this.state.data;
-   // comment.id = Date.now();
    console.log(`${this.state.author} said ${this.state.text}`)
 
    axios.post("http://localhost:3001/api/comments", {author: this.state.author, text: this.state.text})
