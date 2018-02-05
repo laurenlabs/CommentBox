@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import axios from 'axios';
 import style from './style';
 
 class Comment extends Component {
@@ -10,7 +11,7 @@ class Comment extends Component {
       text: ''
     };
     //binding all our functions to this class
-    // this.deleteComment = this.deleteComment.bind(this);
+    this.deleteComment = this.deleteComment.bind(this);
     // this.updateComment = this.updateComment.bind(this);
     // this.handleAuthorChange = this.handleAuthorChange.bind(this);
     // this.handleTextChange = this.handleTextChange.bind(this);
@@ -39,12 +40,25 @@ class Comment extends Component {
   //   })
   // }
   //
-  // deleteComment(e) {
-  //   e.preventDefault();
-  //   let id = this.props.uniqueID;
-  //   this.props.onCommentDelete(id);
-  //   console.log('oops deleted');
-  // }
+  deleteComment(e) {
+    e.preventDefault();
+    let comments = this.state.data;
+
+    let id = this.props.uniqueID;
+    // this.props.onCommentDelete(id);
+    console.log('deleteComment called');
+
+    axios.delete(`http://localhost:3001/api/comments/${id}`, {author: this.state.author, text: this.state.text})
+    .then(res => {
+      this.setState({author: '', text: ''});
+      console.log(res.data);
+      console.log('Comment Delete - Deleted!');
+    })
+    .catch(err => {
+      console.error(err);
+      this.setState({ data: comments })
+    });
+  }
 
   // handleTextChange(e) {
   //   this.setState({ text: e.target.value });
